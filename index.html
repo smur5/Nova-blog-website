@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova — Premier Digital Publication & Future Essays</title>
+  <meta name="description" content="Nova is a premier editorial publication exploring artificial intelligence, digital design, cryptography, and speculative futures.">
+  <meta name="keywords" content="Nova, blog, editorial, tech journalism, design, AI, culture, cryptography">
+
+  <!-- OpenGraph / Social Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nova — Premier Digital Publication">
+  <meta property="og:description" content="Bespoke essays and cultural analysis at the frontier of technology and human agency.">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/variables.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/pages.css">
+</head>
+<body>
+
+  <!-- Scroll Reading Progress Indicator -->
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <!-- Header Navigation -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="#home" class="brand-logo" id="brand-logo-btn">
+        <span class="brand-dot"></span>
+        <span>NOVA</span>
+        <span class="brand-badge">Journal</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="#home" class="nav-link active" data-route="home" id="nav-home">Home</a>
+        <a href="#blogs" class="nav-link" data-route="blogs" id="nav-blogs">Essays</a>
+        <a href="#about" class="nav-link" data-route="about" id="nav-about">Manifesto</a>
+        <a href="#contact" class="nav-link" data-route="contact" id="nav-contact">Inquiries</a>
+        <a href="#payment" class="nav-link" data-route="payment" id="nav-payment">Membership</a>
+      </nav>
+
+      <!-- Navigation Actions -->
+      <div class="nav-actions">
+        <!-- Bookmark Drawer Trigger -->
+        <button class="btn-icon" id="bookmark-drawer-trigger" title="Saved Articles" aria-label="Saved Articles">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="badge-count" id="bookmark-badge-count" style="display: none;">0</span>
+        </button>
+
+        <!-- Subscribe CTA -->
+        <a href="#payment" class="btn btn-primary" id="header-subscribe-btn">
+          Join Nova
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="btn-icon mobile-toggle" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: HOME PAGE
+       ========================================================================= -->
+  <main class="page-view active-view" id="view-home">
+    <!-- Hero Spotlight Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Spotlight Lead Article -->
+          <div id="home-spotlight-container"></div>
+
+          <!-- Side Stack (Top Ranked Stories) -->
+          <div class="side-stack">
+            <div class="side-stack-header">
+              <h3>Trending Dispatches</h3>
+              <a href="#blogs" style="font-size: 0.85rem; color: var(--accent-primary); font-family: var(--font-mono);">
+                View All →
+              </a>
+            </div>
+            <div id="home-side-stack-container" style="display: flex; flex-direction: column; gap: var(--space-3);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-time Trending Marquee -->
+    <div class="ticker-bar" aria-hidden="true">
+      <div class="ticker-label">
+        <span class="brand-dot" style="width: 6px; height: 6px;"></span>
+        Trending Now
+      </div>
+      <div class="ticker-track" id="ticker-track-container"></div>
+    </div>
+
+    <!-- Curated Editors' Grid -->
+    <section class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Editor's Compendium</h2>
+          <p class="section-subtitle">Deep investigative essays on silicon autonomy, sensory design, and distributed governance.</p>
+        </div>
+        <a href="#blogs" class="btn btn-outline" id="browse-all-essays-btn">
+          Explore Archive
+        </a>
+      </div>
+      <div class="articles-grid" id="home-editors-grid"></div>
+    </section>
+
+    <!-- Newsletter Callout Banner -->
+    <section class="container">
+      <div class="newsletter-banner">
+        <div class="newsletter-content">
+          <span class="badge-category" style="margin-bottom: var(--space-3);">The Nova Dispatch</span>
+          <h2 class="newsletter-title">Intellectual rigor delivered every Sunday morning.</h2>
+          <p>Join 142,000+ engineers, theorists, and creative directors who receive our curated weekly synthesis.</p>
+          <form class="newsletter-form" id="home-newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Enter your work email address..." required aria-label="Work Email Address">
+            <button type="submit" class="btn btn-primary">Subscribe Free</button>
+          </form>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-3);">
+            Zero trackers. Zero spam. Unsubscribe with 1-click anytime.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 2: BLOGS & ESSAYS CATALOG
+       ========================================================================= -->
+  <main class="page-view" id="view-blogs">
+    <div class="container">
+      <header class="blogs-header">
+        <span class="badge-category">The Full Index</span>
+        <h1 style="margin: var(--space-3) 0 var(--space-4);">Essays & Deep Dives</h1>
+        <p>Explore rigorous essays exploring cognitive frontiers, decentralized networks, and tactile aesthetics.</p>
+      </header>
+
+      <!-- Search, Categories & View Mode Switcher -->
+      <div class="blogs-controls">
+        <div class="search-input-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="blogs-search-input" class="search-input" placeholder="Search essays by keyword, topic, or author..." aria-label="Search essays">
+        </div>
+
+        <!-- Category Filter Chips -->
+        <div class="category-chips" id="category-chips-container"></div>
+
+        <!-- View Mode Switcher (Grid vs List) -->
+        <div class="view-switcher" aria-label="Layout View Switcher">
+          <button class="view-btn active" id="view-grid-btn" title="Grid View" aria-label="Grid View">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </button>
+          <button class="view-btn" id="view-list-btn" title="Editorial List View" aria-label="List View">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Articles Catalog Grid/List Container -->
+      <div id="blogs-catalog-container" class="articles-grid"></div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 3: ABOUT / MANIFESTO PAGE
+       ========================================================================= -->
+  <main class="page-view" id="view-about">
+    <div class="container">
+      <header class="about-hero">
+        <span class="badge-category">The Manifesto</span>
+        <h1 style="margin: var(--space-4) 0;">The Case Against Intellectual Frictionlessness</h1>
+        <p class="about-manifesto">
+          "When speed is idolized above depth, wisdom is replaced with automated imitation. Nova exists to defend original thought, slow research, and the irreducible craft of human authorship."
+        </p>
+      </header>
+
+      <!-- Animated Key Metrics -->
+      <div class="stats-grid" id="about-stats-container"></div>
+
+      <!-- Editorial Philosophy Breakdown -->
+      <section style="margin: var(--space-16) 0;">
+        <div class="section-header">
+          <h2 class="section-title">Our Editorial Pillars</h2>
+          <p class="section-subtitle">The three non-negotiable standards that govern every dispatch published under the Nova masthead.</p>
+        </div>
+        <div class="articles-grid">
+          <div class="contact-info-card">
+            <div class="badge-category" style="margin-bottom: var(--space-3);">Pillar 01</div>
+            <h3>Zero Synthetic Slop</h3>
+            <p style="margin-top: var(--space-3);">We do not publish machine-generated filler. Every sentence is penned, verified, and argued by human specialists who live the consequences of their domains.</p>
+          </div>
+          <div class="contact-info-card">
+            <div class="badge-category cyan" style="margin-bottom: var(--space-3);">Pillar 02</div>
+            <h3>Aesthetic Integrity</h3>
+            <p style="margin-top: var(--space-3);">Typography and layout are not mere packaging; they are ergonomic conditions for contemplation. We reject behavioral dark patterns and visual clutter.</p>
+          </div>
+          <div class="contact-info-card">
+            <div class="badge-category indigo" style="margin-bottom: var(--space-3);">Pillar 03</div>
+            <h3>Reader Sovereignty</h3>
+            <p style="margin-top: var(--space-3);">Zero third-party trackers. Zero clickbait banner networks. We are funded exclusively by direct reader memberships who value uncompromising editorial independence.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editorial Board & Writers -->
+      <section style="margin: var(--space-16) 0;">
+        <div class="section-header">
+          <h2 class="section-title">The Editorial Board & Fellows</h2>
+          <p class="section-subtitle">Researchers, cyberneticists, and critics directing the publication agenda.</p>
+        </div>
+        <div class="team-grid" id="about-team-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 4: CONTACT & INQUIRIES PAGE
+       ========================================================================= -->
+  <main class="page-view" id="view-contact">
+    <div class="container">
+      <header class="blogs-header">
+        <span class="badge-category">Direct Channels</span>
+        <h1 style="margin: var(--space-3) 0 var(--space-4);">Connect with Nova</h1>
+        <p>Whether submitting an investigative essay, inquiring about institutional licenses, or proposing a speaking engagement, our masthead is reachable below.</p>
+      </header>
+
+      <div class="contact-layout">
+        <!-- Editorial Info Column -->
+        <div class="contact-info-card">
+          <h3>Editorial Headquarters</h3>
+          <p style="margin-top: var(--space-2);">Nova Digital Institute & Publication Lab</p>
+
+          <div class="contact-methods">
+            <div class="contact-method-item">
+              <div class="method-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.95rem;">Editorial Pitches</strong>
+                <p style="font-size: 0.875rem;">pitches@nova-journal.io</p>
+                <span style="font-size: 0.775rem; color: var(--text-muted);">Weekly review cycle on Mondays</span>
+              </div>
+            </div>
+
+            <div class="contact-method-item">
+              <div class="method-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.95rem;">Press & Syndicate Inquiries</strong>
+                <p style="font-size: 0.875rem;">press@nova-journal.io</p>
+                <span style="font-size: 0.775rem; color: var(--text-muted);">Reprint permissions & quotes</span>
+              </div>
+            </div>
+
+            <div class="contact-method-item">
+              <div class="method-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.95rem;">Encrypted Submissions</strong>
+                <p style="font-size: 0.875rem;">PGP Fingerprint: 4E92 B7A1 308C</p>
+                <span style="font-size: 0.775rem; color: var(--text-muted);">Whistleblower and classified research briefs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="contact-form-card">
+          <h3 style="margin-bottom: var(--space-2);">Transmit a Dispatch</h3>
+          <p style="font-size: 0.9rem; margin-bottom: var(--space-6);">Fill out the parameters below. Our staff responds within 48 hours.</p>
+
+          <form id="contact-form">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Full Name or Pseudonym</label>
+              <input type="text" id="contact-name" class="form-control" placeholder="e.g. Dr. Aris Thorne" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Encrypted or Primary Email</label>
+              <input type="email" id="contact-email" class="form-control" placeholder="name@institution.org" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Inquiry Classification</label>
+              <select id="contact-subject" class="form-control" style="background-color: var(--bg-secondary);">
+                <option value="pitch">Editorial Pitch / Unpublished Essay</option>
+                <option value="membership">Membership & Enterprise Access</option>
+                <option value="speaking">Fellowship & Keynote Inquiries</option>
+                <option value="correction">Factual Correction / Errata</option>
+                <option value="other">General Dispatch</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message or Abstract (Max 1,000 words)</label>
+              <textarea id="contact-message" class="form-control" rows="5" placeholder="Detail your premise, sources, or inquiry..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="contact-submit-btn" style="width: 100%;">
+              Send Secure Message →
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <div class="section-header">
+          <h2 class="section-title">Frequently Examined Questions</h2>
+          <p class="section-subtitle">Clarifications on editorial policy, member privileges, and local caching technology.</p>
+        </div>
+        <div id="contact-faq-container"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 5: PAYMENT & MEMBERSHIP PAGE
+       ========================================================================= -->
+  <main class="page-view" id="view-payment">
+    <div class="container">
+      <header class="payment-hero">
+        <span class="badge-category">Reader Supported</span>
+        <h1 style="margin: var(--space-4) 0 var(--space-3);">Invest in Independent Intellect</h1>
+        <p>Nova is strictly reader-funded. No sponsored propaganda, no algorithmic surveillance. Choose the access tier that reflects your commitment to high-craft research.</p>
+
+        <!-- Billing Toggle -->
+        <div class="billing-toggle-wrap">
+          <div class="billing-toggle-btn">
+            <button class="billing-opt" id="billing-monthly-btn">Monthly Billing</button>
+            <button class="billing-opt active" id="billing-annual-btn">
+              Annual Billing
+            </button>
+          </div>
+          <span class="discount-pill">Save 20% + Early Monograph Access</span>
+        </div>
+      </header>
+
+      <!-- Pricing Cards Container -->
+      <div class="pricing-grid" id="pricing-cards-container"></div>
+
+      <!-- Feature Comparison Matrix -->
+      <section style="margin-top: var(--space-12);">
+        <div class="section-header">
+          <h2 class="section-title">Full Privilege Matrix</h2>
+          <p class="section-subtitle">Detailed breakdown of features across all Nova access tiers.</p>
+        </div>
+
+        <div class="feature-matrix-wrap">
+          <table class="feature-table">
+            <thead>
+              <tr>
+                <th>Tier Features & Privileges</th>
+                <th style="text-align: center;">Free Reader</th>
+                <th style="text-align: center; color: var(--accent-primary);">Nova Pro</th>
+                <th style="text-align: center;">Lifetime Patron</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Public Essays & Bi-weekly Briefings</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+              <tr>
+                <td>Unlimited In-Depth Investigative Monographs</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+              <tr>
+                <td>Narrated Studio Audio Recordings (Offline Capable)</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+              <tr>
+                <td>Private Reader Salons & Editorial AMAs</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+              <tr>
+                <td>Printed Archival Hardcover Editions (Quarterly)</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+              <tr>
+                <td>Advisory Ballot on Commissioned Topic Research</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--text-dim);">—</td>
+                <td style="text-align: center; color: var(--accent-emerald);">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: FULL ARTICLE READER
+       ========================================================================= -->
+  <div class="modal-overlay" id="reader-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reader-modal-title">
+    <div class="modal-box" id="reader-modal-box">
+      <button class="modal-close-btn" id="reader-modal-close" aria-label="Close Article Reader">✕</button>
+
+      <div class="reader-hero">
+        <img id="reader-hero-img" src="" alt="Article Banner" />
+        <div class="reader-hero-overlay">
+          <span id="reader-category-badge" class="badge-category">Category</span>
+          <h1 id="reader-modal-title" style="font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin: var(--space-3) 0 var(--space-2); color: #fff;"></h1>
+          <div id="reader-modal-meta" style="font-size: 0.85rem; color: var(--text-secondary);"></div>
+        </div>
+      </div>
+
+      <div class="reader-content">
+        <!-- Interactive Reader Toolbar -->
+        <div class="reader-toolbar">
+          <div class="author-chip">
+            <img class="author-avatar" id="reader-author-avatar" src="" alt="Author" />
+            <span class="author-name" id="reader-author-name"></span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: var(--space-3);">
+            <!-- Font Sizer -->
+            <div style="display: flex; gap: 2px; background: var(--bg-tertiary); border-radius: var(--radius-xs); padding: 2px;">
+              <button class="btn-icon" id="font-decrease-btn" style="width: 28px; height: 28px; font-size: 0.8rem;" title="Decrease font size">A-</button>
+              <button class="btn-icon" id="font-increase-btn" style="width: 28px; height: 28px; font-size: 0.8rem;" title="Increase font size">A+</button>
+            </div>
+
+            <!-- Like Counter -->
+            <button class="btn btn-outline" id="reader-like-btn" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+              <span id="reader-like-count">0</span>
+            </button>
+
+            <!-- Save Bookmark -->
+            <button class="btn-icon" id="reader-bookmark-btn" title="Bookmark Article">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+
+            <!-- Share -->
+            <button class="btn-icon" id="reader-share-btn" title="Share Story">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Article Prose Body -->
+        <article class="reader-body" id="reader-modal-body"></article>
+
+        <!-- Newsletter in Modal Footer -->
+        <div style="background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-6); margin-top: var(--space-12); text-align: center;">
+          <h4>Enjoying this investigation?</h4>
+          <p style="font-size: 0.9rem; margin-top: var(--space-2);">Subscribe to receive Dr. Rostova and the Nova fellows' essays directly in your inbox.</p>
+          <form class="newsletter-form" style="max-width: 440px; margin: var(--space-4) auto 0;">
+            <input type="email" class="newsletter-input" placeholder="Your email..." required>
+            <button type="submit" class="btn btn-primary">Join</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: CHECKOUT & PAYMENT FLOW
+       ========================================================================= -->
+  <div class="modal-overlay" id="checkout-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <div class="modal-box" style="max-width: 540px; padding: var(--space-8);">
+      <button class="modal-close-btn" id="checkout-modal-close" aria-label="Close Checkout">✕</button>
+
+      <div style="margin-bottom: var(--space-6);">
+        <span class="badge-category">Instant Enrollment</span>
+        <h2 id="checkout-title" style="margin-top: var(--space-2); font-size: 1.75rem;">Complete Membership</h2>
+      </div>
+
+      <!-- Payment Method Switcher Tabs -->
+      <div class="payment-tabs">
+        <button class="payment-tab-btn active" data-method="card">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          Credit Card
+        </button>
+        <button class="payment-tab-btn" data-method="apple">
+           Pay / G-Pay
+        </button>
+        <button class="payment-tab-btn" data-method="crypto">
+          Crypto (USDC)
+        </button>
+      </div>
+
+      <!-- Live Virtual Card Visual Preview -->
+      <div id="card-payment-fields">
+        <div class="checkout-card-preview">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div class="card-chip"></div>
+            <span style="font-family: var(--font-mono); font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; color: var(--accent-primary);">NOVA MEMBER</span>
+          </div>
+          <div class="card-number-display" id="card-num-display">•••• •••• •••• 4242</div>
+          <div class="card-info-row">
+            <div>
+              <div style="font-size: 0.65rem;">Cardholder</div>
+              <div id="card-name-display" style="color: #fff; font-weight: 600;">ALEXA MERCER</div>
+            </div>
+            <div>
+              <div style="font-size: 0.65rem;">Expires</div>
+              <div id="card-exp-display" style="color: #fff; font-weight: 600;">12/28</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Form Inputs -->
+        <div class="form-group">
+          <label class="form-label" for="card-number-input">Card Number</label>
+          <input type="text" id="card-number-input" class="form-control" placeholder="4242 4242 4242 4242" maxlength="19">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-4);">
+          <div class="form-group">
+            <label class="form-label" for="card-name-input">Cardholder Name</label>
+            <input type="text" id="card-name-input" class="form-control" placeholder="Alexa Mercer">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="card-exp-input">Expires (MM/YY)</label>
+            <input type="text" id="card-exp-input" class="form-control" placeholder="12/28" maxlength="5">
+          </div>
+        </div>
+      </div>
+
+      <!-- Alternative Payment Message -->
+      <div id="alt-payment-fields" style="display: none; padding: var(--space-6); background: var(--bg-tertiary); border-radius: var(--radius-sm); margin-bottom: var(--space-6); text-align: center;">
+        <p id="alt-payment-message" style="font-size: 0.95rem; color: var(--text-primary);"></p>
+      </div>
+
+      <!-- Promo Code Bar -->
+      <div style="display: flex; gap: var(--space-2); margin-bottom: var(--space-6);">
+        <input type="text" id="promo-code-input" class="form-control" placeholder="Discount code (e.g. NOVA2026)">
+        <button class="btn btn-secondary" id="apply-promo-btn" type="button">Apply</button>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div style="background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: var(--space-4); margin-bottom: var(--space-6); font-size: 0.9rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+          <span style="color: var(--text-secondary);">Selected Plan:</span>
+          <strong id="checkout-plan-name" style="color: var(--text-primary);">Nova Pro</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+          <span style="color: var(--text-secondary);">Cadence:</span>
+          <span id="checkout-billing-cycle">Annual (12 Months)</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding-top: var(--space-2); border-top: 1px solid var(--border-subtle); font-size: 1.1rem; font-weight: 700;">
+          <span style="color: var(--text-primary);">Total Due:</span>
+          <span id="checkout-total-amount" class="text-amber">$132.00</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button class="btn btn-primary" id="pay-submit-btn" style="width: 100%; padding: 0.85rem;">
+        Complete Order
+      </button>
+      <div style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-top: var(--space-3);">
+        🔒 256-bit encrypted checkout. 30-day money-back satisfaction guarantee.
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SIDE DRAWER: SAVED BOOKMARKS
+       ========================================================================= -->
+  <div class="drawer" id="bookmark-drawer" role="dialog" aria-labelledby="bookmark-drawer-title">
+    <div class="drawer-header">
+      <h3 id="bookmark-drawer-title" style="font-size: 1.15rem;">Saved Library</h3>
+      <button class="btn-icon" id="bookmark-drawer-close" aria-label="Close Saved Library">✕</button>
+    </div>
+    <div class="drawer-body" id="bookmark-drawer-list"></div>
+  </div>
+
+  <!-- =========================================================================
+       SIDE DRAWER: MOBILE NAVIGATION
+       ========================================================================= -->
+  <div class="drawer" id="mobile-drawer" role="dialog" aria-labelledby="mobile-nav-title">
+    <div class="drawer-header">
+      <div class="brand-logo">
+        <span class="brand-dot"></span>
+        <span>NOVA</span>
+      </div>
+      <button class="btn-icon" id="mobile-drawer-close" aria-label="Close Navigation">✕</button>
+    </div>
+    <div class="drawer-body" style="display: flex; flex-direction: column; gap: var(--space-4);">
+      <a href="#home" class="nav-link" style="font-size: 1.25rem;">Home</a>
+      <a href="#blogs" class="nav-link" style="font-size: 1.25rem;">Essays & Catalog</a>
+      <a href="#about" class="nav-link" style="font-size: 1.25rem;">The Manifesto</a>
+      <a href="#contact" class="nav-link" style="font-size: 1.25rem;">Contact & Inquiries</a>
+      <a href="#payment" class="nav-link" style="font-size: 1.25rem;">Membership Plans</a>
+      <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-4) 0;">
+      <a href="#payment" class="btn btn-primary" style="width: 100%;">
+        Join Nova Pro →
+      </a>
+    </div>
+  </div>
+
+  <!-- Backdrop overlay for drawers -->
+  <div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+
+  <!-- Dynamic Floating Toast Alerts -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- =========================================================================
+       GLOBAL SITE FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="brand-dot"></span>
+            <span>NOVA</span>
+            <span class="brand-badge">Journal</span>
+          </div>
+          <p>
+            An independent digital publication and think tank exploring the cognitive and societal consequences of synthetic intelligence, tangible interfaces, and distributed systems.
+          </p>
+          <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3);">
+            <span class="badge-category">Est. 2024</span>
+            <span class="badge-category cyan">Autonomous Press</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#blogs">Essays & Catalog</a>
+            <a href="#about">The Manifesto</a>
+            <a href="#contact">Direct Inquiries</a>
+            <a href="#payment">Membership</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Disciplines</h4>
+          <div class="footer-links">
+            <a href="#blogs" onclick="window.NovaApp.setCategory('ai')">Synthetic Minds</a>
+            <a href="#blogs" onclick="window.NovaApp.setCategory('design')">Tactile Design</a>
+            <a href="#blogs" onclick="window.NovaApp.setCategory('culture')">Digital Subcultures</a>
+            <a href="#blogs" onclick="window.NovaApp.setCategory('tech')">Neuromorphic Silicon</a>
+            <a href="#blogs" onclick="window.NovaApp.setCategory('future')">Acoustic Ecologies</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Weekly Dispatch</h4>
+          <p style="font-size: 0.875rem; margin-bottom: var(--space-3);">Receive our private Sunday briefings without tracking pixels.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;" placeholder="Your email..." required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.5rem 0.85rem; font-size: 0.85rem; margin-top: var(--space-2); width: 100%;">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Nova Editorial Syndicate. All rights reserved. Zero proprietary surveillance.
+        </div>
+        <div style="display: flex; gap: var(--space-6);">
+          <a href="#about">Editorial Ethics</a>
+          <a href="#contact">PGP Key</a>
+          <a href="#payment">Patron Rights</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="scripts/data.js"></script>
+  <script src="scripts/router.js"></script>
+  <script src="scripts/payment.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
